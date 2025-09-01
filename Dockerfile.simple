@@ -1,0 +1,16 @@
+# Simple Dockerfile alternative
+FROM node:18-alpine
+
+WORKDIR /app
+
+# Copy everything
+COPY . .
+
+# Install dependencies
+RUN npm install
+
+# Expose port
+EXPOSE 3001
+
+# Start the app
+CMD ["npm", "start"]
