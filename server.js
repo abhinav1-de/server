@@ -18,6 +18,24 @@ const io = new Server(httpServer, {
 app.use(cors());
 app.use(express.json());
 
+// Health check endpoint (required by many deployment platforms)
+app.get('/', (req, res) => {
+  res.json({ 
+    status: 'ok', 
+    message: 'JustAnime Multiplayer Server is running',
+    rooms: rooms.size,
+    timestamp: new Date().toISOString()
+  });
+});
+
+app.get('/health', (req, res) => {
+  res.json({ 
+    status: 'healthy',
+    uptime: process.uptime(),
+    rooms: rooms.size
+  });
+});
+
 // In-memory storage for rooms
 const rooms = new Map();
 
